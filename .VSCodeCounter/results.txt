@@ -1,0 +1,49 @@
+Date : 2020-07-25 15:36:25
+Directory : d:\code\Program\game_wechat
+Total : 16 files,  28928 codes, 3412 comments, 20629 blanks, all 52969 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         12 |     28,837 |      3,412 |     20,626 |     52,875 |
+| JSON       |          2 |         57 |          0 |          1 |         58 |
+| Markdown   |          1 |         23 |          0 |          2 |         25 |
+| HTML       |          1 |         11 |          0 |          0 |         11 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                    | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                       |         16 |     28,928 |      3,412 |     20,629 |     52,969 |
+| exercise                                                |          2 |         86 |         13 |         22 |        121 |
+| libs                                                    |          2 |     28,674 |      3,389 |     20,573 |     52,636 |
+| src                                                     |          8 |         85 |          9 |         30 |        124 |
+| src\game                                                |          4 |         53 |          9 |         19 |         81 |
+| src\pages                                               |          2 |         22 |          0 |          4 |         26 |
+| src\utils                                               |          1 |          0 |          0 |          1 |          1 |
++---------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\code\Program\game_wechat\README.md                   | Markdown   |         23 |          0 |          2 |         25 |
+| d:\code\Program\game_wechat\exercise\demo.html          | HTML       |         11 |          0 |          0 |         11 |
+| d:\code\Program\game_wechat\exercise\demo.js            | JavaScript |         75 |         13 |         22 |        110 |
+| d:\code\Program\game_wechat\game.js                     | JavaScript |          3 |          1 |          1 |          5 |
+| d:\code\Program\game_wechat\game.json                   | JSON       |          3 |          0 |          1 |          4 |
+| d:\code\Program\game_wechat\libs\three.js               | JavaScript |     27,501 |      3,346 |     20,195 |     51,042 |
+| d:\code\Program\game_wechat\libs\weapp-adapter.js       | JavaScript |      1,173 |         43 |        378 |      1,594 |
+| d:\code\Program\game_wechat\project.config.json         | JSON       |         54 |          0 |          0 |         54 |
+| d:\code\Program\game_wechat\src\game\controller.js      | JavaScript |         24 |          5 |          6 |         35 |
+| d:\code\Program\game_wechat\src\game\game.js            | JavaScript |          8 |          1 |          5 |         14 |
+| d:\code\Program\game_wechat\src\game\model.js           | JavaScript |          0 |          0 |          1 |          1 |
+| d:\code\Program\game_wechat\src\game\view.js            | JavaScript |         21 |          3 |          7 |         31 |
+| d:\code\Program\game_wechat\src\main.js                 | JavaScript |         10 |          0 |          6 |         16 |
+| d:\code\Program\game_wechat\src\pages\game-over-page.js | JavaScript |         11 |          0 |          2 |         13 |
+| d:\code\Program\game_wechat\src\pages\game-page.js      | JavaScript |         11 |          0 |          2 |         13 |
+| d:\code\Program\game_wechat\src\utils\event.js          | JavaScript |          0 |          0 |          1 |          1 |
+| Total                                                   |            |     28,928 |      3,412 |     20,629 |     52,969 |
++---------------------------------------------------------+------------+------------+------------+------------+------------+
