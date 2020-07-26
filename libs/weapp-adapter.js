@@ -733,6 +733,11 @@
 	  head: new _HTMLElement2.default('head'),
 	  body: new _HTMLElement2.default('body'),
 
+	  // 添加createElementNS
+	  createElementNS: function createElementNS(nameSpace, tagName) {
+		  return this.createElement(tagName)
+	  },
+
 	  createElement: function createElement(tagName) {
 	    if (tagName === 'canvas') {
 	      return new _Canvas2.default();
