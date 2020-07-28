@@ -1,41 +1,35 @@
-import GamePage from '../pages/game-page.js'
-import GameOverPage from '../pages/game-over-page.js'
+import GamePage from '../pages/game-page'
+import GameOverPage from '../pages/game-over-page'
+import Event from '../utils/event'
 
 class GameView {
-    // 单例工厂
-    constructor() {
+  constructor () {
+    this.restartButtonClicked = new Event(this)
+  }
 
-    }
+  showGameOverPage () {
+    // this.gamePage.hide()
+    this.gameOverPage.show()
+  }
 
-    initGamePage (callbacks) {
-        // view改变通过controller改变module
-        // 从上层传入回调参数callbacks
-        this.gamePage = new GamePage(callbacks)
-        this.gamePage.init()
-        this.gamePage.render()
-    }
+  showGamePage () {
+    this.gameOverPage.hide()
+    this.gamePage.restart()
+    this.gamePage.show()
+  }
 
-    initGameOverPage (callbacks) {
-        this.gameOverPage = new GameOverPage(callbacks)
-        this.gameOverPage.init({
-            scene: this.gamePage.scene
-        })
-    }
+  initGameOverPage (callbacks) {
+    this.gameOverPage = new GameOverPage(callbacks)
+    this.gameOverPage.init({
+      camera: this.gamePage.scene.camera.instance,
+      scene: this.gamePage.scene.instance
+    })
+  }
 
-    showGameOverPage () {
-        this.gamePage.hide()
-        this.gameOverPage.show()
-    }
-
-    showGamePage () {
-        this.gameOverPage.hide()
-        this.gamePage.restart()
-        this.gamePage.show()
-    }
-
-    restartGame () {
-        this.gamePage.restart()
-    }
+  initGamePage (callbacks) {
+    this.gamePage = new GamePage(callbacks)
+    this.gamePage.init()
+  }
 }
 
 export default new GameView()

@@ -1,45 +1,39 @@
-import gameView from './view.js'
-import gameModel from './model.js'
+import gameView from './view'
+import gameModel from './model'
 
 class GameController {
-    // controller负责暴露出控制的API
-    // constructor() {
-    //     this.gameView = gameView
-    //     this.gameModel = gameModel
-    //     this.gameModel.stageChanged.attach((sender, args) => {
-    //         const stageName = args.stage
-    //         switch (stageName) {
-    //             case 'game-over':
-    //                 this.gameView.showGameOverPage()
-    //                 break
-    //             case 'game':
-    //                 this.gameView.showGamePage()
-    //                 break
-    //             default:
-    //         }
-    //     })
-    // }
+  constructor () {
+    this.gameView = gameView
+    this.gameModel = gameModel
+    this.gameModel.stageChanged.attach((sender, args) => {
+      const stageName = args.stage
+      switch (stageName) {
+        case 'game-over':
+          this.gameView.showGameOverPage()
+          break
+        case 'game':
+          this.gameView.showGamePage()
+          break
+        default:
+      }
+    })
+  }
 
-    // 初始化页面
-    initPages() {
-        const gamePageCallbacks = {
-            // gameover需要在最上层controller进行传输
-            showGameOverPage: () => {
-                this.gameModel.setStage('game-over')
-            }
-        }
-
-        const gameOverPageCallbacks = () => {
-            this.gameModel.setStage('game')
-        }
-
-        // 上层直接调用初始化page函数
-        this.gameView.initGamePage(gamePageCallbacks)
-        this.gameView.initGameOverPage(gameOverPageCallbacks)
+  initPages () {
+    const gamePageCallbacks = {
+      showGameOverPage: () => {
+        this.gameModel.setStage('game-over')
+      }
     }
-    constructor () {
-        this.gameView = gameView
+    const gameOverPagesCallbacks = {
+      gameRestart: () => {
+        this.gameModel.setStage('game')
+      }
     }
+    this.gameView.initGamePage(gamePageCallbacks)
+    this.gameView.initGameOverPage(gameOverPagesCallbacks)
+    this.gameModel.setStage('game')
+  }
 }
 
 export default new GameController()

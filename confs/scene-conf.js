@@ -1,4 +1,4 @@
 export default {
-    backgroundColor: '#000000',
-    frustunSize: 30
+  backgroundColor: '#000000',
+  frustumSize: 30
 }

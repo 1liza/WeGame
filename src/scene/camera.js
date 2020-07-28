@@ -1,18 +1,28 @@
 import sceneConf from '../../confs/scene-conf'
+import { customAnimation } from '../../libs/animation'
 
 class Camera {
-    // 因为没有明显的透视效果，选择正交相机
-    constructor () {
-        this.instance = null
-    }
+  constructor () {
+    this.instance = null
+  }
 
-    init () {
-        const aspect = window.innerHeight / window.innerWidth
-        this.instance = new THREE.OrthographicCamera(-sceneConf.frustunSize, sceneConf.frustunSize, sceneConf.frustunSize*aspect, -sceneConf.frustunSize*aspect, -100, 85)
-        this.instance.position.set(-10, 10, 10)
-        this.target = new THREE.Vector3(0,0,0)
-        this.instance.lookAt(this.target)
-    }
+  init () {
+    const aspect = window.innerHeight / window.innerWidth
+    this.instance = new THREE.OrthographicCamera(-sceneConf.frustumSize, sceneConf.frustumSize, sceneConf.frustumSize * aspect, -sceneConf.frustumSize * aspect, -100, 85)
+    this.instance.position.set(-10, 10, 10)
+    this.target = new THREE.Vector3(0, 0, 0)
+    this.instance.lookAt(this.target)
+  }
+
+  updatePosition (newTargetPosition) {
+    customAnimation.to(this.instance.position, 0.5, { x: newTargetPosition.x - 10, y: newTargetPosition.y + 10, z: newTargetPosition.z + 10 })
+    customAnimation.to(this.target, 0.5, { x: newTargetPosition.x, y: newTargetPosition.y, z: newTargetPosition.z })
+  }
+
+  reset () {
+    this.instance.position.set(-10, 10, 10)
+    this.target = new THREE.Vector3(0, 0, 0)
+  }
 }
 
 export default new Camera()
