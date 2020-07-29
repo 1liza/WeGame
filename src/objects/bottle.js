@@ -3,6 +3,8 @@ import bottleConf from '../../confs/bottle-conf'
 import blockConf from '../../confs/block-conf'
 import gameConf from '../../confs/game-conf'
 import { customAnimation } from '../../libs/animation'
+import audioManger from '../modules/audio-manger'
+import { Particle } from '../../libs/three'
 
 class Bottle {
   constructor () {
@@ -60,14 +62,89 @@ class Bottle {
     this.bottle.position.x = 0
     this.bottle.position.z = 0
     this.obj.add(this.bottle)
+
+    this.particles = []
+    
+    const whiteParticleMaterial = new THREE.Material({map: this.loader.load('/game/res/images/white.png'), alphaTest: 0.5})
+    const greenParticleMaterial = new THREE.Material({map: this.loader.load('/game/res/images/green.png'), alphaTest: 0.5})
+    const particleGeometry = new THREE.PlaneGeometry(2, 2)
+
+    for (let i=0; i< 15; i++) {
+      const particle = new THREE.Mesh(particleGeometry, whiteParticleMaterial)
+      particle.rotation.x = -Math.PI / 4
+      particle.rotation.y = -Math.PI / 5
+      particle.rotation.z = -Math.PI / 5
+      this.particles.push(particle)
+      this.obj.add(particle)
+    }
+
+    for (let i=0; i< 5; i++) {
+      const particle = new THREE.Mesh(particleGeometry, greenParticleMaterial)
+      particle.rotation.x = -Math.PI / 4
+      particle.rotation.y = -Math.PI / 5
+      particle.rotation.z = -Math.PI / 5
+      this.particles.push(particle)
+      this.obj.add(particle)
+    }
+
+  }
+  
+  gatherParticles() {
+    for (let i=10; i<20; i++) {
+      this.particles[i].gathering = true
+      this.particles[i].scattering = false
+      this._gatherParticles(this.particles[i])
+    }
+    this.gatherTimer = setTimeout(() => { // 10个白色粒子等500ms后开始触发 时间越长 粒子越多
+      for (let i=0;i<10; i++){
+        this.particles[i].gathering = true
+        this.particles[i].scattering = false
+        this._gatherParticles(this.particles[i])
+      }
+    }, 500+1000*Math.random())
+  }
+  _gatherParticles(particle) {
+    const minDistance = 1
+    const maxDistance = 8
+    particle.scale(1,1,1)
+    particle.visible = false
+    const x = Math.random() > 0.5 ? 1 : -1
+    const z = Math.random() > 0.5 ? 1 : -1
+    particle.position.x = (minDistance+(maxDistance-minDistance)*Math.random())*x
+    particle.position.y = minDistance+(maxDistance-minDistance)*Math.random()
+    particle.position.z = (minDistance+(maxDistance-minDistance)*Math.random())*z
+
+    setTimeout(((particle) => {// 粒子随时出现
+      if (!particle.gathering) return
+      particle.visible = true
+      const duration = 0.5+Math.random()*0.4
+      customAnimation.to(particle.scale, duration, {
+        x: 0.8+Math.random(),
+        y: 0.8+Math.random(),
+        z: 0.8+Math.random()
+      })
+      customAnimation.to(particle.position, duration, {
+        x: Math.random() * x,
+        y: Math.random() * 2.5,
+        z: Math.random() * z,
+        onComplete:() => {
+          if (particle.gathering) {
+            this._gatherParticles()
+          }
+        }
+      })
+    })(particle), Math.random()*500)
   }
 
   reset () {
     this.stop()
+    this.obj.rotation.x = 0
+    this.obj.rotation.z = 0
     this.obj.position.set(bottleConf.initPosition.x, bottleConf.initPosition.y + 30, bottleConf.initPosition.z)
   }
 
   showup () {
+    audioManger.init.play()
     customAnimation.to(this.obj.position, 0.5, { x: bottleConf.initPosition.x, y: bottleConf.initPosition.y + blockConf.height / 2, z: bottleConf.initPosition.z, ease: 'Bounce.easeOut' })
   }
 
@@ -102,6 +179,7 @@ class Bottle {
 
   shrink () {
     this.status = 'shrink'
+    this.gatherParticles()
   }
 
   update () {
@@ -157,6 +235,36 @@ class Bottle {
     const translateY = this.velocity.vy * t - 0.5 * gameConf.gravity * t * t - gameConf.gravity * this.flyingTime * t
     this.obj.translateY(translateY)
     this.obj.translateOnAxis(this.axis, translateH)
+  }
+
+  forerake() {
+    this.status = 'forerake'
+    setTimeout(() => {
+      if (this.direction === 0) {
+        customAnimation.to(this.obj.rotation, 1, {z: -Math.PI/2})
+      } else {
+        customAnimation.to(this.obj.rotation, 1, {x: -Math.PI/2})
+      }
+      setTimeout(() => {
+        customAnimation.to(this.obj.position, 0.4, {y: -blockConf.height/2+1.2})
+      }, 350)
+    }, 200)
+  }
+
+  hypokinesis() {
+    this.status = 'hypokinesis'
+    setTimeout(() => {
+      if (this.direction=== 0) {
+        customAnimation.to(this.obj.rotation, 0.8, {z: Math.PI/2})
+      } else {
+        customAnimation.to(this.obj.rotation, 0.8, {x: Math.PI/2})
+      }
+      setTimeout(() => {
+        customAnimation.to(this.obj.position, 0.4, {y: -blockConf.height/2+1.2})
+      }, 350)
+      customAnimation.to(this.head.position, 0.2, {x: 1.25})
+      customAnimation.to(this.head.position, 0.2, {x: 0, delay: 0.2})
+    }, 200)
   }
 }
 

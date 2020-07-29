@@ -1,4 +1,3 @@
-import sceneConf from '../../confs/scene-conf'
 import camera from './camera'
 import light from './light'
 import background from '../objects/background'
