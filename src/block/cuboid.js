@@ -1,13 +1,16 @@
 import BaseBlock from './base'
 import utils from '../utils/index'
 import blockConf from '../../confs/block-conf'
-import bottle from '../objects/bottle'
+// import bottle from '../objects/bottle'
 
 export default class Cuboid extends BaseBlock {
   constructor (x, y, z, type, name, width) {
     super('cuboid')
+    this.width = width
     this.loader = new THREE.TextureLoader
-    const size = width || this.width
+    // const size = width || this.width
+    const size = width
+    this.width = width
     let randName
     if (name === 'random') {
       const randNum = Math.floor(Math.random() * 10)
@@ -16,7 +19,11 @@ export default class Cuboid extends BaseBlock {
       } else if  (randNum >=3) {
         randName ='well'
       } else {
-        randName ='shop'
+        if (this.width > 13) {
+          randName ='shop'
+        } else {
+          randName ='color'
+        }
       }
     }
       const seed = Math.floor(Math.random() * 6)

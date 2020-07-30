@@ -9,7 +9,7 @@ class Scene {
   init () {
     this.instance = new THREE.Scene()
     const renderer = this.renderer = new THREE.WebGLRenderer(
-      { antialias: true,
+      { antialias: true,// 抗锯齿
         canvas: canvas,
         preserveDrawingBuffer: true,
       }
@@ -37,6 +37,7 @@ class Scene {
   }
 
   render () {
+   // debugger
     this.renderer.render(this.instance, this.camera.instance)
   }
 

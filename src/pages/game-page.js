@@ -1,4 +1,4 @@
-import {scene}  from '../scene/index'
+import scene from '../scene/scene'
 import Cuboid from '../block/cuboid'
 import Cylinder from '../block/cylinder'
 import ground from '../objects/ground'
@@ -73,7 +73,7 @@ export default class GamePage {
     this.bottle.reset()
     this.updateScore(0)
     this.addInitBlock()
-    // this.addGround()
+    this.addGround()
     this.addBottle()
     this.bindTouchEvent()
   }
@@ -124,9 +124,9 @@ export default class GamePage {
   }
 
   addInitBlock () {
-    this.currentBlock = new Cuboid(-15, 0, 0,'show', 'random') 
+    this.currentBlock = new Cuboid(-15, 0, 0,'show', 'random', blockConf.width) 
     this.scene.instance.add(this.currentBlock.instance)
-    this.nextBlock = new Cylinder(23, 0, 0, 'show', 'color')
+    this.nextBlock = new Cylinder(23, 0, 0, 'show', 'color', blockConf.width)
     this.scene.instance.add(this.nextBlock.instance)
     const initDirection = 0
     this.targetPosition = {
@@ -230,6 +230,13 @@ export default class GamePage {
           this.combo = 0
           this.updateScore(++this.score)
           audioManger.success.play()
+        } else if (this.hit === HIT_CURRENT_BLOCK) {
+          this.state = 'stop'
+          this.bottle.stop()
+          this.bottle.obj.position.y = blockConf.height / 2
+          this.bottle.obj.position.x = this.bottle.destination[0]
+          this.bottle.obj.position.z = this.bottle.destination[1]
+          return
         }
         
         this.state = 'stop'
@@ -241,6 +248,7 @@ export default class GamePage {
 
       } else { //游戏结束
         this.state = 'over'
+        this.uploadScore()
         this.combo = 0
         if (this.hit === GAME_OVER_NEXT_BLOCK_BACK || this.hit === GAME_OVER_CURRENT_BLOCK_BACK) {
           // 先把所有动画停止
@@ -260,7 +268,7 @@ export default class GamePage {
           this.bottle.obj.position.y = blockConf.height/2
           setTimeout (() => {
             this.callbacks.showGameOverPage()
-          }, 2000)
+          }, 1500)
         } else {
           audioManger.fall.play()
           this.callbacks.showGameOverPage()
@@ -313,5 +321,14 @@ export default class GamePage {
       result2 = GAME_OVER_CURRENT_BLOCK_BACK
     }
     return result1 || result2 || 0
+  }
+
+  uploadScore() {
+    const openDataContext = wx.getOpenDataContext()// 申请开放数据域
+    openDataContext.postMessage({
+      type: 'updateMaxScore',
+      score: this.score
+    })
+    this.score = 0
   }
 }

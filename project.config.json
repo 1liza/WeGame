@@ -24,12 +24,12 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": true,
+		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "game",
 	"libVersion": "1.9.94",
-	"appid": "wx728311bbf70fa184",
+	"appid": "wx04c3f40d3b5e8e0b",
 	"projectname": "game_wechat",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

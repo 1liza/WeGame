@@ -48,14 +48,20 @@ export default class BaseBlock {
 
   getVertices () {
     const vertices = []
+    console.log('getVertice:', this)
+    console.log('width:', this.width)
+    let wucha = 0
+    if (this.type==='cylinder') {
+      wucha = 1
+    }
     const centerPosition = {
       x: this.instance.position.x,
       z: this.instance.position.z
     }
-    vertices.push([centerPosition.x + this.width / 2, centerPosition.z + this.width / 2])
-    vertices.push([centerPosition.x + this.width / 2, centerPosition.z - this.width / 2])
-    vertices.push([centerPosition.x - this.width / 2, centerPosition.z + this.width / 2])
-    vertices.push([centerPosition.x - this.width / 2, centerPosition.z - this.width / 2])
+    vertices.push([centerPosition.x + this.width / 2 - wucha, centerPosition.z + this.width / 2 - wucha])
+    vertices.push([centerPosition.x + this.width / 2 - wucha, centerPosition.z - this.width / 2 - wucha])
+    vertices.push([centerPosition.x - this.width / 2 - wucha, centerPosition.z + this.width / 2 - wucha])
+    vertices.push([centerPosition.x - this.width / 2 - wucha, centerPosition.z - this.width / 2 - wucha])
     return vertices
   }
 }

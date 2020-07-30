@@ -5,7 +5,7 @@ import blockConf from '../../confs/block-conf'
 export default class Cylinder extends BaseBlock {
   constructor (x, y, z, type, name, width) {
     super('cylinder')
-    const size = width || this.width
+    const size = width
     // var geometry = new THREE.CylinderGeometry(size / 2, size / 2, this.height, 120)
 
     this.loader = new THREE.TextureLoader

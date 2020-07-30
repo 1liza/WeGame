@@ -9,7 +9,7 @@ class Light {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
     const shadowLight = new THREE.DirectionalLight(0xffffff, 0.3)
     this.shadowLight = shadowLight
-    const shadowLightHelper = new THREE.DirectionalLightHelper(shadowLight, 5)
+    // const shadowLightHelper = new THREE.DirectionalLightHelper(shadowLight, 5)
     shadowLight.position.set(10, 30, 20)
     shadowLight.castShadow = true
     var basicMaterial = new THREE.MeshBasicMaterial({ color: 0xF5F5F5 });
@@ -28,7 +28,7 @@ class Light {
     this.instances.shadowLight = shadowLight
     this.instances.ambientLight = ambientLight
     this.instances.shadowTarget = this.shadowTarget
-    this.instances.shadowLightHelper = shadowLightHelper
+    // this.instances.shadowLightHelper = shadowLightHelper
   }
 
   updatePosition (targetPosition) {
