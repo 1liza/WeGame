@@ -10,10 +10,15 @@ class Scene {
     this.instance = new THREE.Scene()
     const renderer = this.renderer = new THREE.WebGLRenderer(
       { antialias: true,// 抗锯齿
+        precision: "highp",
         canvas: canvas,
         preserveDrawingBuffer: true,
       }
     )
+    // 抗锯齿
+    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setSize(window.innerWidth, window.innerHeight)
+
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFShadowMap
     // renderer.setClearColor(sceneConf.backgroundColor)
